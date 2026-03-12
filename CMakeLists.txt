@@ -25,7 +25,7 @@ include_directories(
     ${Python3_NumPy_INCLUDE_DIRS}
   
     
-    ${CMAKE_CURRENT_SOURCE_DIR}/ALBUS_ionosphere/vex_to_sky2
+    ${CMAKE_CURRENT_SOURCE_DIR}/ALBUS_ionosphere/C++/vex_to_sky2
     ${CMAKE_CURRENT_SOURCE_DIR}/ALBUS_ionosphere/C++/mim/test/PIMrunner
     ${CMAKE_CURRENT_SOURCE_DIR}/ALBUS_ionosphere/FORTRAN/SOFA/sofa
     ${CMAKE_CURRENT_SOURCE_DIR}/ALBUS_ionosphere/FORTRAN/IRI

@@ -7,6 +7,7 @@
 
 
 // INCLUDES
+#include <cmath>
 #include <stdio.h>
 #include <stdlib.h>
 #include "JMA_math.h"
@@ -73,8 +74,11 @@ namespace MIM_PIM {
 
     void LatLon_Cart::convert_to_cartesian(void) throw()
     {
-        sincos(lat, &slat, &clat);
-        sincos(lon, &slon, &clon);
+        slat = std::sin(lat);
+        clat = std::cos(lat);
+
+        slon = std::sin(lon);
+        clon = std::cos(lon);
 
         // Ok now, remember that the latitide is 90\degr - \theta
         vector[x_axis] = clon*clat*radius;
@@ -93,7 +97,8 @@ namespace MIM_PIM {
             lon=atan2(vector[y_axis], vector[x_axis]);
             slat = vector[z_axis]/radius;
             lat = asin(slat);
-            sincos(lon, &slon, &clon);
+            slon = std::sin(lon);
+            clon = std::cos(lon);
             clat = cos(lat);
         }
         else {

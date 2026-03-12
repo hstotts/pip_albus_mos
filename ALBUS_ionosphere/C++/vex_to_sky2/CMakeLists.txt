@@ -10,7 +10,7 @@ include_directories(
   vex2005
   vexplus
   ${CMAKE_SOURCE_DIR}/ALBUS_ionosphere/include
-  ${CMAKE_SOURCE_DIR}/ALBUS_ionosphere/C++/vex_to_sky2/mim/test/PIMrunner
+  ${CMAKE_SOURCE_DIR}/ALBUS_ionosphere/C++/mim/test/PIMrunner
 )
 
 
@@ -28,7 +28,6 @@ set(HEADERS
 set(SRCS
   ellipsoidal_coord.cxx
   ut1_interp.f
-  vex_iono_processor.cxx
   vex_time.cxx
   vex_ut1_interp.cxx
 )
@@ -50,30 +49,47 @@ add_subdirectory(vexplus)
 # static library can be built without compiling the sources twice.
 
 # Build shared library (libjmavex.so)
-add_library(jmavex SHARED  ${SRCS})
-set_target_properties(jmavex PROPERTIES
-  OUTPUT_NAME "jmavex"
- VERSION "${VER_MAJOR}.${VER_MINOR}.${VER_SUBSUB}"
-  SOVERSION "${VER_MAJOR}"
-)
+#add_library(jmavex SHARED  ${SRCS})
+#set_target_properties(jmavex PROPERTIES
+#  OUTPUT_NAME "jmavex"
+# VERSION "${VER_MAJOR}.${VER_MINOR}.${VER_SUBSUB}"
+#  SOVERSION "${VER_MAJOR}"
+#)
 
-target_link_directories(jmavex PRIVATE ../mim/test/PIMrunner)
+#target_link_directories(jmavex PRIVATE ../mim/test/PIMrunner)
 
 # Link the external libraries to the shared library target.
 # This mirrors the Makefile’s EXTERN_LIBS:
 #   -lvexplus -lvex -lfl -lsofa -l$(F77_COMPILER_LIB)
+#target_link_libraries(jmavex PRIVATE
+  #mim  ### included in the original make file as lib
+#  vex
+#  vexplus
+#  fl
+#  sofa
+#  ${F77_COMPILER_LIB}
+#)
+
+#set_target_properties(jmavex PROPERTIES
+#    INSTALL_RPATH "$ORIGIN"
+#    BUILD_WITH_INSTALL_RPATH TRUE
+#)
+
+add_library(jmavex SHARED ${SRCS})
+set_target_properties(jmavex PROPERTIES
+  OUTPUT_NAME "jmavex"
+  VERSION "${VER_MAJOR}.${VER_MINOR}.${VER_SUBSUB}"
+  SOVERSION "${VER_MAJOR}"
+  INSTALL_RPATH "$ORIGIN"
+  BUILD_WITH_INSTALL_RPATH TRUE
+)
+
 target_link_libraries(jmavex PRIVATE
   vex
-  #mim  ### included in the original make file as lib
   vexplus
   fl
   sofa
   ${F77_COMPILER_LIB}
-)
-
-set_target_properties(jmavex PROPERTIES
-    INSTALL_RPATH "$ORIGIN"
-    BUILD_WITH_INSTALL_RPATH TRUE
 )
 
 

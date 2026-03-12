@@ -40,6 +40,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/vex_util.c
     ${CMAKE_CURRENT_SOURCE_DIR}/print_vex.c
     ${CMAKE_CURRENT_SOURCE_DIR}/vex_get.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/vex_globals.c
 )
 
 

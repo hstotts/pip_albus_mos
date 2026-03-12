@@ -2,7 +2,11 @@
 #include <string.h>
 #include <stdio.h>
 #include <ctype.h>
+#ifdef __APPLE__
+#include <stdlib.h>
+#else
 #include <malloc.h>
+#endif
 
 #include "vex.h"
 #include "y.tab.h"

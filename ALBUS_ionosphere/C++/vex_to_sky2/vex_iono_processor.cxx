@@ -30,13 +30,16 @@
 
 
 // Need some globals for the new vex2005 stuff
+//extern "C" {
+//    FILE *fp = NULL;
+//    char *filename = NULL;
+//}
+
+
 extern "C" {
-    FILE *fp = NULL;
-    char *filename = NULL;
+    extern FILE *fp;
+    extern char *filename;
 }
-
-
-
 
 
 

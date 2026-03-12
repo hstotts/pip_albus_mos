@@ -9,6 +9,7 @@
 #define SPACE_ROTATION_MATRIX_H
 
 // INCLUDES
+#include <cmath>
 #include "JMA_math.h"
 #include "space_vector.h"
 
@@ -50,8 +51,8 @@ public:
         Space_Rotation_Matrix(const Real64 angle,
                               const enum Space_Vector_Enum type) throw()
             {
-                Real64 cos_angle, sin_angle;
-                sincos(angle, &sin_angle, &cos_angle);
+                Real64 cos_angle = std::cos(angle);
+                Real64 sin_angle = std::sin(angle);
                 *this = Space_Rotation_Matrix(cos_angle, sin_angle, type);
             };
         Space_Rotation_Matrix(const Real64 cos_angle, const Real64 sin_angle,

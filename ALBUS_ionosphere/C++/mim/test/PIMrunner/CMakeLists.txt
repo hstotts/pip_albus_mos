@@ -3,7 +3,8 @@ project(JMA_Code C CXX)
 
 
 
-find_library(LAPACKE_LIB NAMES lapacke REQUIRED)
+find_library(LAPACKE_LIB NAMES lapacke PATHS /opt/local/lib REQUIRED)
+message(STATUS "LAPACKE_LIB=${LAPACKE_LIB}")
 
 
 
@@ -65,6 +66,7 @@ set(SRCS
     station_latlon.cxx
     station_maker.cxx
     station_reference.cxx
+    ${CMAKE_SOURCE_DIR}/ALBUS_ionosphere/C++/vex_to_sky2/vex_iono_processor.cxx
 )
 
 # List header files (for IDE integration; not strictly required for compilation)
@@ -143,7 +145,19 @@ set_target_properties(mim
 # Here we assume that libraries named pim, iri, jmavex, vexplus, vex, sofa, fl and m
 # are available. You might need to adjust these or use find_library() if necessary.
 #----------------------------------------------------------------------------
-target_link_libraries(mim PRIVATE
+#target_link_libraries(mim PRIVATE
+#    jmavex
+#    pim
+#    iri
+#    vexplus
+#    vex
+#    sofa
+#    fl
+#    m
+#    lapacke
+#    
+#)
+target_link_libraries(mim PUBLIC
     jmavex
     pim
     iri
@@ -152,10 +166,8 @@ target_link_libraries(mim PRIVATE
     sofa
     fl
     m
-    lapacke
-    
+    ${LAPACKE_LIB}
 )
-
 
 set(EXECUTABLES
     lofar
@@ -176,15 +188,15 @@ foreach(exec ${EXECUTABLES})
   # Assume the main file for each executable is named "<exec>.cxx"
   add_executable(${exec} ${exec}.cxx)
   target_link_libraries(${exec} PRIVATE mim
-    pim
-    iri
-    jmavex
-    vexplus
-    vex
-    sofa
-    fl
-    m
-    lapacke
+  #  pim
+  #  iri
+  #  jmavex
+  #  vexplus
+  #  vex
+  #  sofa
+  #  fl
+  #  m
+  #  lapacke
   )
   target_include_directories(${exec} PRIVATE
     ${PYTHONINCLUDEDIR}

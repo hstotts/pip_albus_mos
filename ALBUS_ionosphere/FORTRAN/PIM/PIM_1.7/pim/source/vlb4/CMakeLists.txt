@@ -71,11 +71,17 @@ endif()
 # the actual files become libpim.so and libpim.a.
 # --------------------------------------------------------------------
 
+#add_library(pim SHARED ${LIB_SRCS})
+#set_target_properties(pim PROPERTIES OUTPUT_NAME "pim" 
+# VERSION "${VER_MAJOR}.${VER_MINOR}.${VER_SUBSUB}"
+#  SOVERSION "${VER_MAJOR}")
+
 add_library(pim SHARED ${LIB_SRCS})
+target_link_libraries(pim PRIVATE sofa ${F77_COMPILER_LIB} m)
+
 set_target_properties(pim PROPERTIES OUTPUT_NAME "pim" 
  VERSION "${VER_MAJOR}.${VER_MINOR}.${VER_SUBSUB}"
   SOVERSION "${VER_MAJOR}")
-
 
 # --------------------------------------------------------------------
 # Build Executable Targets
